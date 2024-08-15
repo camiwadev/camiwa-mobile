@@ -9,16 +9,19 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { FooterComponent } from './components/ui/footer/footer.component';
 import { HeaderComponent } from "./components/ui/header/header.component";
 import { GlobalService } from './services/global-service.service';
+import { BookingComponent } from './components/booking/booking.component';
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
     CommonModule,
+    ChatComponent,
     HomeComponent,
     ProfileComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    BookingComponent
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
