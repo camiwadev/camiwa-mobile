@@ -6203,6 +6203,8 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 }
 .box-recent-project .box-image img {
   object-fit: cover;
+  object-position: top; /* Esto asegura que la imagen comience desde la parte superior */
+  
 }
 .box-recent-project .bottom {
   gap: 28px;
