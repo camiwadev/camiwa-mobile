@@ -155,7 +155,7 @@
           duration: 2000,
           easing: "swing",
           step: function (now) {
-            $this.find(".percent_text").text(Math.ceil(now) + "%");
+            $this.find(".percent_text").text(Math.ceil(now) + " dias");
           },
         }
       );
