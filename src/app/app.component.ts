@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID,Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { ChatComponent } from './components/chat/chat.component';
@@ -27,22 +28,26 @@ import { BookingComponent } from './components/booking/booking.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  constructor(private scriptLoader: ScriptLoaderService,public global:GlobalService) {}
+  constructor( @Inject(PLATFORM_ID) private platformId: Object,
+  private scriptLoader: ScriptLoaderService,
+  public global: GlobalService) {}
 
   ngOnInit(): void {
-    this.scriptLoader
-      .loadScripts([
-        'assets/js/bootstrap.min.js',
-        'assets/js/jquery.min.js',
-        'assets/js/swiper-bundle.min.js',
-        'assets/js/carousel.js',
-        'assets/js/init.js',
-        'assets/js/main.js',
-        'assets/js/multiple-modal.js',
-      ])
-      .then((data) => {
-        console.log('Todos los scripts se han cargado correctamente', data);
-      })
-      .catch((error) => console.error('Error al cargar los scripts', error));
+    if (isPlatformBrowser(this.platformId)) {
+      this.scriptLoader
+        .loadScripts([
+          'assets/js/bootstrap.min.js',
+          'assets/js/jquery.min.js',
+          'assets/js/swiper-bundle.min.js',
+          'assets/js/carousel.js',
+          'assets/js/init.js',
+          'assets/js/main.js',
+          'assets/js/multiple-modal.js',
+        ])
+        .then((data) => {
+          console.log('Todos los scripts se han cargado correctamente', data);
+        })
+        .catch((error) => console.error('Error al cargar los scripts', error));
+    }
   }
 }
