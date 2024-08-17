@@ -1,9 +1,11 @@
 import PocketBase from 'pocketbase';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+
 import { Observable, from } from 'rxjs';
 
 import { UserInterface } from '@app/interfaces/user-interface'; // Asegúrate de que la ruta sea correcta
 import { GlobalService } from '@app/services/global-service.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'

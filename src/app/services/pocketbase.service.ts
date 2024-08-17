@@ -1,38 +1,35 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable } from 'rxjs';
 import PocketBase from 'pocketbase';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PocketbaseService {
-  private pb: PocketBase;
-  private specialistsSubject: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-  public specialists$: Observable<any[]> = this.specialistsSubject.asObservable();
+  private pb: PocketBase | undefined;
+  private specialistsSubject: BehaviorSubject<any[]> = new BehaviorSubject<
+    any[]
+  >([]);
+  public specialists$: Observable<any[]> =
+    this.specialistsSubject.asObservable();
   specialists: any[] = [];
-  constructor() {
-    // Inicializa PocketBase con la URL de tu backend
-    this.pb = new PocketBase('https://db.buckapi.com:8090');
-    
-    // Inicia la suscripción a tiempo real
-
-     this.getSpecialists().subscribe((specialists) => {
-      this.specialists = specialists;
-    });
-
-    this.initializeRealtime();
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.pb = new PocketBase('https://db.buckapi.com:8090');
+      this.initializeRealtime();
+    }
   }
 
   // Método para inicializar la conexión en tiempo real
   private initializeRealtime() {
-    // Suscríbete a los cambios en la colección 'camiwaSpecialists'
-    this.pb.collection('camiwaSpecialists').subscribe('*', (event) => {
-      this.handleRealtimeUpdate(event); // Maneja las actualizaciones en tiempo real
-    });
+    if (this.pb) { // Asegúrate de que `pb` esté inicializado antes de usarla
+      this.pb.collection('camiwaSpecialists').subscribe('*', (event) => {
+        this.handleRealtimeUpdate(event); // Maneja las actualizaciones en tiempo real
+      });
 
-    // Actualiza la lista inicial de especialistas
-    this.updateSpecialistsList();
+      this.updateSpecialistsList();
+    }
   }
 
   // Método para manejar actualizaciones en tiempo real
@@ -44,7 +41,9 @@ export class PocketbaseService {
         specialists.push(event.record); // Añade un nuevo especialista
         break;
       case 'update':
-        const index = specialists.findIndex((s: any) => s.id === event.record.id);
+        const index = specialists.findIndex(
+          (s: any) => s.id === event.record.id
+        );
         if (index !== -1) {
           specialists[index] = event.record; // Actualiza un especialista existente
         }
@@ -60,12 +59,23 @@ export class PocketbaseService {
 
   // Método para obtener y actualizar la lista de especialistas
   private updateSpecialistsList() {
-    this.pb.collection('camiwaSpecialists').getFullList(200 /* page size */, {
-      filter: 'status="approved"', // Filtra solo los especialistas aprobados
-    }).then((specialists: any[]) => {
-      this.specialistsSubject.next(specialists); // Actualiza el observable con la nueva lista
-    });
-  }
+    if (!this.pb) {
+        console.error('PocketBase no está inicializado');
+        return; // O lanzar un error: throw new Error('PocketBase no está inicializado');
+    }
+
+    this.pb
+      .collection('camiwaSpecialists')
+      .getFullList(200 /* page size */, {
+        filter: 'status="approved"', // Filtra solo los especialistas aprobados
+      })
+      .then((specialists: any[]) => {
+        this.specialistsSubject.next(specialists); // Actualiza el observable con la nueva lista
+      })
+      .catch((error) => {
+        console.error('Error al obtener la lista de especialistas:', error);
+      });
+}
 
   // Método para obtener especialistas como Observable
   public getSpecialists(): Observable<any[]> {
