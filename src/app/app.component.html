@@ -35,10 +35,10 @@
         </ul>
     </div>
     <div class="mt-24">
-        <h5 class="text-black-2">Visibility</h5>
+        <h5 class="text-black-2">Ubicación</h5>
         
         <div class="dropdown mt-16">
-            <div class="dropdown-toggle drop-select-visibility" data-bs-toggle="dropdown">
+            <!-- <div class="dropdown-toggle drop-select-visibility" data-bs-toggle="dropdown">
                     <span class="icon">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g opacity="0.8">
@@ -47,7 +47,7 @@
                         </svg>                              
                     </span>
                     <div class="title-visibility text-val-drop">Public</div>
-            </div>
+            </div> -->
             <div class="dropdown-menu dropdown-visibility full">
                     <div class="dropdown-item val-drop act-suggest2 active">
                         <div class="title-visibility title-drop">Public</div>
@@ -61,7 +61,49 @@
 
         
     </div>
+    <div class="swiper tf-swiper" data-space-between="0" data-preview="1.3" data-tablet="1.5" data-desktop="2">
+      <div class="swiper-wrapper">
+        <span class="badge primary badge-lg" style="margin-right: 10px;">      Todas</span>
+
+        <div class="swiper-slide" *ngFor="let specialist of pocketbase.specialists$ | async" >
+          <span class="badge secondary badge-lg">      especialidad</span>
+          <!-- <div class="d-flex gap-10 flex-wrap">
+            <ng-container *ngFor="let specialty of specialist.specialties">
+              <span class="badge light-primary badge-lg">{{ specialty.name }}</span>
+            </ng-container>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    
     <div class="mt-24">
+      <h6 class="text-black-2">Can Access</h6>
+      <div class="dropdown mt-10">
+          <div class="dropdown-toggle drop-select-access select" data-bs-toggle="dropdown">
+              <img src="assets/images/project/nft.jpg" alt="img">
+              <div class="content">
+                  <div class="body-4 text-black-2 fw-bold text-val-drop">NFT Website Design</div>
+                  <p class="body-2 text-black-5 desc-val-drop">Workspace</p>
+              </div>
+          </div>
+          <div class="dropdown-menu dropdown-access full">
+              <div class="dropdown-item val-drop">
+                  <div class="content">
+                      <div class="body-4 text-black-2 fw-bold title-drop">NFT Website Design</div>
+                      <p class="body-2 text-black-5 desc-drop">Workspace</p>
+                  </div>
+              </div>
+              <div class="dropdown-item val-drop">
+                  <div class="content">
+                      <div class="body-4 text-black-2 fw-bold title-drop">NFT Website Design UX</div>
+                      <p class="body-2 text-black-5 desc-drop">Workspace UX</p>
+                  </div>
+              </div>
+              
+          </div>
+      </div>
+  </div>
+    <!-- <div class="mt-24">
         <a href="invite-colleagues.html" class="tf-btn outline-btn-primary style-1 gap-8">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9.84426 6.04199C10.1593 6.04199 10.4146 6.29735 10.4146 6.61235V9.27403H13.0763C13.3913 9.27403 13.6467 9.5294 13.6467 9.84439C13.6467 10.1594 13.3913 10.4147 13.0763 10.4147H10.4146V13.0764C10.4146 13.3914 10.1593 13.6468 9.84426 13.6468C9.52927 13.6468 9.27391 13.3914 9.27391 13.0764V10.4147H6.61223C6.29723 10.4147 6.04187 10.1594 6.04187 9.84439C6.04187 9.5294 6.29723 9.27403 6.61223 9.27403H9.27391V6.61235C9.27391 6.29735 9.52927 6.04199 9.84426 6.04199Z" fill="#00a08f"/>
@@ -69,8 +111,8 @@
             </svg>
             Add Member
         </a>
-        <a href="create-task.html" class="mt-35 tf-btn primary">Create Project</a>
-    </div>
+        <a href="create-task.html" class="mt-35 tf-btn primary">aplicar</a>
+    </div> -->
 </div>
 </div>
 

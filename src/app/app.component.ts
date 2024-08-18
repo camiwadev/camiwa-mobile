@@ -11,6 +11,7 @@ import { FooterComponent } from './components/ui/footer/footer.component';
 import { HeaderComponent } from "./components/ui/header/header.component";
 import { GlobalService } from './services/global-service.service';
 import { BookingComponent } from './components/booking/booking.component';
+import { PocketbaseService } from './services/pocketbase.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -30,6 +31,7 @@ import { BookingComponent } from './components/booking/booking.component';
 export class AppComponent {
   constructor( @Inject(PLATFORM_ID) private platformId: Object,
   private scriptLoader: ScriptLoaderService,
+  public pocketbase: PocketbaseService,
   public global: GlobalService) {}
 
   ngOnInit(): void {
