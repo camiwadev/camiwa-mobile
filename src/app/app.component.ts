@@ -3,7 +3,7 @@ import { Inject, PLATFORM_ID,Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { ChatComponent } from './components/chat/chat.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,  } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ScriptLoaderService } from './services/script-loader.service';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -11,7 +11,8 @@ import { FooterComponent } from './components/ui/footer/footer.component';
 import { HeaderComponent } from "./components/ui/header/header.component";
 import { GlobalService } from './services/global-service.service';
 import { BookingComponent } from './components/booking/booking.component';
-import { PocketbaseService } from './services/pocketbase.service';
+// import { PocketbaseService } from './services/pocketbase.service';
+import { bootstrapApplication } from '@angular/platform-browser';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -24,6 +25,8 @@ import { PocketbaseService } from './services/pocketbase.service';
     FooterComponent,
     HeaderComponent,
     BookingComponent
+  
+
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -31,7 +34,7 @@ import { PocketbaseService } from './services/pocketbase.service';
 export class AppComponent {
   constructor( @Inject(PLATFORM_ID) private platformId: Object,
   private scriptLoader: ScriptLoaderService,
-  public pocketbase: PocketbaseService,
+  // public pocketbase: PocketbaseService,
   public global: GlobalService) {}
 
   ngOnInit(): void {
