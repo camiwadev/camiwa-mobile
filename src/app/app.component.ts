@@ -13,6 +13,7 @@ import { GlobalService } from './services/global-service.service';
 import { BookingComponent } from './components/booking/booking.component';
 // import { PocketbaseService } from './services/pocketbase.service';
 import { bootstrapApplication } from '@angular/platform-browser';
+import { LoginComponent } from './components/login/login.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -24,7 +25,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
     ProfileComponent,
     FooterComponent,
     HeaderComponent,
-    BookingComponent
+    BookingComponent,
+    LoginComponent
   
 
 ],

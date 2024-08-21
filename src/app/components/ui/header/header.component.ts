@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GlobalService } from '@app/services/global-service.service';
 
 @Component({
   selector: 'app-header',
@@ -8,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-
+constructor(
+  public global:GlobalService
+){}
 }

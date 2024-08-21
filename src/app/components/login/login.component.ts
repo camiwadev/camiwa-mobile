@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { PocketAuthService } from '@app/services/pocket-auth7.service';
+import { PocketAuthService } from '@app/services/auth-pocketbase.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 

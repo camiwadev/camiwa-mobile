@@ -15,9 +15,18 @@ export class GlobalService {
   }
 
   setRoute(route: string) {
-    this._activateRoute = route;
     if (isPlatformBrowser(this.platformId)) {
+      const isLoggedin = localStorage.getItem('isLoggedin') === 'true';
+  
+      if (route === 'profile') {
+        route = isLoggedin ? 'profile' : 'login';
+      }
+  
+      this._activateRoute = route;
       localStorage.setItem('activateRoute', route);
+    } else {
+      this._activateRoute = route;
     }
   }
+  
 }

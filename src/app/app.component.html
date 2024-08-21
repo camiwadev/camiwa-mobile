@@ -1,6 +1,7 @@
-<app-header [hidden]="global.activateRoute=='profile'"></app-header>
+<app-header [hidden]="global.activateRoute=='profile' "></app-header>
     <app-home [hidden]="global.activateRoute!='home'"></app-home>
     <app-chat [hidden]="global.activateRoute!='chat'"></app-chat>
+    <app-login [hidden]="global.activateRoute!='login'"></app-login>
     <app-booking [hidden]="global.activateRoute!='booking'"></app-booking>
     <app-profile [hidden]="global.activateRoute!='profile'"></app-profile>
 <app-footer></app-footer>
@@ -54,8 +55,7 @@
                     </div>
                     <div class="dropdown-item val-drop act-suggest2">
                         <div class="title-visibility title-drop">Private</div>
-                    </div>
-                    
+                    </div>                    
             </div>
         </div>
 

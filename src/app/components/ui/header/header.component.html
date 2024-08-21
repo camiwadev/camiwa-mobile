@@ -1,4 +1,4 @@
-<div class="header-profile bg-primary style-1 fixed-top">
+<div class="header-profile bg-primary style-1 fixed-top" [hidden]="global.activateRoute=='login'">
   
     <!-- <div class="left">
         <div class="avt">
@@ -37,4 +37,10 @@
         </a>
     </div>
    
+</div>
+<div class="header fixed-top line-bt" [hidden]="global.activateRoute!='login'">
+    <div class="left">
+      <a  class="icon back-btn"><i class="icon-back"></i></a>
+    </div>
+    <h4>Inicio de sesión</h4> 
 </div>
