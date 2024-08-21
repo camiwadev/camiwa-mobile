@@ -3105,7 +3105,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   max-width: 1024px;
   margin-right: auto;
   margin-left: auto;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 .menubar-footer .inner-bar li a svg {

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } 
 import { PocketAuthService } from '@app/services/auth-pocketbase.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { GlobalService } from '@app/services/global-service.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
+    public global:GlobalService,
     private authService: PocketAuthService,
     private router: Router
   ) {
@@ -41,7 +43,8 @@ export class LoginComponent {
       this.authService.loginUser(email, password).subscribe({
         next: (response) => {
           console.log('Inicio de sesión exitoso', response);
-          this.router.navigate(['/dashboard']);
+          localStorage.setItem('isLoggedin', 'true');
+          this.global.setRoute('home');
         },
         error: (error) => {
           console.error('Error en el inicio de sesión', error);

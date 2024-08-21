@@ -14,6 +14,7 @@ import { BookingComponent } from './components/booking/booking.component';
 // import { PocketbaseService } from './services/pocketbase.service';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { LoginComponent } from './components/login/login.component';
+import { PocketAuthService } from './services/auth-pocketbase.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -36,6 +37,7 @@ import { LoginComponent } from './components/login/login.component';
 export class AppComponent {
   constructor( @Inject(PLATFORM_ID) private platformId: Object,
   private scriptLoader: ScriptLoaderService,
+  public auth:PocketAuthService,
   // public pocketbase: PocketbaseService,
   public global: GlobalService) {}
 

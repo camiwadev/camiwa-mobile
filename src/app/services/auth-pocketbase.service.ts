@@ -8,18 +8,20 @@ import { GlobalService } from '@app/services/global-service.service';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PocketAuthService {
   private pb: PocketBase;
 
-  constructor( public global: GlobalService) {
+  constructor(public global: GlobalService) {
     this.pb = new PocketBase('https://db.buckapi.com:8090');
   }
 
   async saveCategor(categoryData: any): Promise<any> {
     try {
-      const record = await this.pb.collection('camiwaCategories').create(categoryData);
+      const record = await this.pb
+        .collection('camiwaCategories')
+        .create(categoryData);
       console.log('Categoría guardada exitosamente:', record);
 
       return record; // Si necesitas devolver el registro creado
@@ -31,7 +33,9 @@ export class PocketAuthService {
 
   async saveSpecialty(specialtyData: any): Promise<any> {
     try {
-      const record = await this.pb.collection('camiwaSpecialties').create(specialtyData);
+      const record = await this.pb
+        .collection('camiwaSpecialties')
+        .create(specialtyData);
       console.log('Especialidad guardada exitosamente:', record);
       // this.global.getSpecialties();
       return record; // Si necesitas devolver el registro creado
@@ -40,47 +44,68 @@ export class PocketAuthService {
       throw error; // Puedes lanzar el error para manejarlo en otro lugar
     }
   }
-
-  registerUser(email: string, password: string, type: string, name: string): Observable<any> {
-    const userData = {
-      "email": email,
-      "password": password,
-      "passwordConfirm": password,
-      "type": type,
-      "username": name,
-      "name": name
-    };
-
-    // Crear usuario y luego crear el registro en camiwaTravelers
-    return from(this.pb.collection('users').create(userData).then((user) => {
-      const data = {
-        "name": name,
-        "address": "", // Agrega los campos correspondientes aquí
-        "phone": "", // Agrega los campos correspondientes aquí
-        "userId": user.id, // Utiliza el ID del usuario recién creado
-        "status": "pending", // Opcional, establece el estado del cliente
-        "images": {} // Agrega los campos correspondientes aquí
-      };
-      return this.pb.collection('camiwaTravelers').create(data);
-    }));
+  isLogin() {
+    return localStorage.getItem('isLoggedin');
   }
 
-  onlyRegisterUser(email: string, password: string, type: string, name: string): Observable<any> {
+  registerUser(
+    email: string,
+    password: string,
+    type: string,
+    name: string
+  ): Observable<any> {
     const userData = {
       email: email,
       password: password,
       passwordConfirm: password,
       type: type,
       username: name,
-      name: name
+      name: name,
+    };
+
+    // Crear usuario y luego crear el registro en camiwaTravelers
+    return from(
+      this.pb
+        .collection('users')
+        .create(userData)
+        .then((user) => {
+          const data = {
+            name: name,
+            address: '', // Agrega los campos correspondientes aquí
+            phone: '', // Agrega los campos correspondientes aquí
+            userId: user.id, // Utiliza el ID del usuario recién creado
+            status: 'pending', // Opcional, establece el estado del cliente
+            images: {}, // Agrega los campos correspondientes aquí
+          };
+          return this.pb.collection('camiwaTravelers').create(data);
+        })
+    );
+  }
+
+  onlyRegisterUser(
+    email: string,
+    password: string,
+    type: string,
+    name: string
+  ): Observable<any> {
+    const userData = {
+      email: email,
+      password: password,
+      passwordConfirm: password,
+      type: type,
+      username: name,
+      name: name,
     };
 
     // Crear usuario y devolver el observable con el usuario creado
     return from(
-      this.pb.collection('users').create(userData).then((user) => {
-        // No se necesita crear ningún registro adicional en camiwaTravelers aquí
-        return user; // Devolver los datos del usuario creado
-      })
+      this.pb
+        .collection('users')
+        .create(userData)
+        .then((user) => {
+          // No se necesita crear ningún registro adicional en camiwaTravelers aquí
+          return user; // Devolver los datos del usuario creado
+        })
     );
   }
 
@@ -99,21 +124,22 @@ export class PocketAuthService {
     localStorage.removeItem('clientCard');
     localStorage.removeItem('clientFicha');
     this.pb.authStore.clear();
+    this.global.setRoute('home');
     // this.virtualRouter.routerActive = "home";
-    return new Observable<any>(observer => {
+    return new Observable<any>((observer) => {
       observer.next(); // Indicar que la operación de cierre de sesión ha completado
       observer.complete();
     });
   }
 
   setToken(token: any): void {
-    localStorage.setItem("accessToken", token);
+    localStorage.setItem('accessToken', token);
   }
 
   setUser(user: UserInterface): void {
     let user_string = JSON.stringify(user);
     let type = JSON.stringify(user.type);
-    localStorage.setItem("currentUser", user_string);
-    localStorage.setItem("type", type);
+    localStorage.setItem('currentUser', user_string);
+    localStorage.setItem('type', type);
   }
 }

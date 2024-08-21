@@ -78,12 +78,12 @@
                 </a>
             </li>
             <li class="list-view-item style-1" data-bs-toggle="modal" data-bs-target="#logout">
-                <a href="javascript:void(0);" class="gap-20">
+                <a (click)="auth.logoutUser()" class="gap-20">
                         <div class="box-icon w-36 bg-grey-2 radius-12">
                             <i class="icon-log-out text-danger fs-20"></i>   
                         </div>
                         <div class="font-title-btn text-black-2 title text-danger">
-                            Log out
+                            Cerrar sesión
                         </div>
                         <div class="box-icon w-20">
                             <i class="icon-arr-r fs-12"></i>
